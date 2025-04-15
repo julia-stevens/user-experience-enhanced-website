@@ -1,5 +1,38 @@
-console.log('Hier komt je server voor Sprint 10.')
+import express from "express"
+import { Liquid } from "liquidjs"
+import methodOverride from "method-override"
 
-console.log('Gebruik uit Sprint 9 alleen de code die je mee wilt nemen.')
+const app = express()
+app.use(express.urlencoded({ extended: true }))
+app.use(express.static("public"))
 
-console.log('Zet \'m op!')
+const engine = new Liquid()
+app.engine("liquid", engine.express())
+app.set("views", "./views")
+
+app.use(methodOverride("_method"))
+
+// HOME
+app.get("/", (req, res) => {
+    res.render("index.liquid")
+})
+
+// WEBINARS
+app.get("/webinars", (req, res) => {
+    res.render("webinars.liquid")
+})
+
+// BOOKMARKS
+app.get("/bookmarks", (req, res) => {
+    res.render("bookmarks.liquid")
+})
+
+// WEBINAR/:SLUG
+app.get("/webinars/:slug", (req, res) => {
+    res.render("webinar.liquid")
+})
+
+app.set("port", process.env.PORT || 8000)
+app.listen(app.get("port"), () => {
+    console.log(`Application started on https://localhost:${"port"}`)
+})
