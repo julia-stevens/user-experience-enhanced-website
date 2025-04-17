@@ -1,0 +1,49 @@
+<article class="webinar-article">
+    <h3 class="sr-only" inert>{{ webinar.title }}</h3>
+    <a href="/webinars/{{ webinar.slug }}">
+        <div class="webinar-thumbnail">
+            <img src="https://fdnd-agency.directus.app/assets/{{ webinar.thumbnail | default: "assets/images/default-webinar.avif"}}" alt="" width="100">
+            <p class="duration-btn">{{ webinar.duration }}</p>
+        </div>
+        <div class="webinar-info">
+            {% for category in webinar.categories %}
+                <p class="category-btn">
+                    {% assign words = category.avl_categories_id.name | split: " " %}
+                    {% for word in words %}
+                      {{ word | capitalize }}{% if forloop.last == false %} {% endif %}
+                    {% endfor %}
+                  </p>
+            {% endfor %}
+
+            <h3>{{ webinar.title | truncatewords: 4 }}</h3>
+
+            {% for speaker in webinar.speakers %}
+                <p class="speaker">{{ speaker.avl_speakers_id.fullname }}</p>
+            {% endfor %}
+
+            <a href="/webinars/{{ webinar.slug }}" class="webinar-link">
+                View webinar
+                <img src="/assets/icons/arrow-webinar.svg" alt="" width="20">
+            </a>
+        </div>
+    </a>
+    
+    <form method="post" action="{% if request.path == '/bookmarks' %}/bookmarks{% else %}/webinars{% endif %}" class="webinar-form" data-enhanced="form-{{ webinar.id }}">
+        <input type="hidden" name="textField" value="{{ webinar.id }}">
+        <input type="hidden" name="forField" value="Bookmark for Julia">
+        <input type="hidden" name="_method" value="{% if bookmarkedIds contains webinar.id %}DELETE{% else %}POST{% endif %}">
+        
+        {% if bookmarkedIds contains webinar.id %}
+            <button type="submit" class="bookmark-btn highlight-btn" >
+                <img src="/assets/icons/bookmarks-blue-marked.svg" alt="" width="20">    
+                <span>Bookmarked</span>
+            </button> 
+        {% else %}
+            <button type="submit" class="bookmark-btn highlight-btn">
+                <img src="/assets/icons/bookmarks-blue.svg" alt="" width="20">
+                {% comment %} {% include "public/assets/icons/bookmarks-blue.liquid" %} {% endcomment %}
+                <span>Bookmark</span>
+            </button>
+        {% endif %}
+    </form>
+</article>

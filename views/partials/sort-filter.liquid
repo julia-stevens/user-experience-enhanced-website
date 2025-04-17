@@ -1,0 +1,56 @@
+<section class="filter-sort">
+    <h2>Sort & filter</h2>
+    <form class="sort">
+        <label>
+            Sort by 
+            <select name="sort">
+                <option value="newest" 
+                    {% if currentSort == "newest" %} selected {% endif %}>
+                    Newest
+                </option>
+                <option value="oldest"
+                    {% if currentSort == "oldest" %} selected {% endif %}>
+                    Oldest
+                </option>
+                <option value="alphabetical"
+                    {% if currentSort == "alphabetical" %} selected {% endif %}>
+                    A-Z
+                </option>
+                <option value="views"
+                    {% if currentSort == "views" %} selected {% endif %}>
+                    Most viewed
+                </option>
+            </select>
+        </label>
+        <button type="submit" class="webinars-btns submit-button">Sort webinars</button>
+    </form>
+
+    <form class="filter">
+        <div class="filters">
+            <label>
+                <input type="radio" name="category" value="" {% if currentCategory == "" %} checked {% endif %}>
+                <span>All</span>
+            </label>
+
+            {% for category in categories %}
+                {% assign words = category.name | split: " " %} {% comment %} splits naam op spaties --> elk woord apart {% endcomment %}
+                {% assign new_name = "" %}
+                
+                {% for word in words %}
+                    {% assign capitalized_word = word | capitalize %} {% comment %} eerste letter hoofdletter {% endcomment %}
+                    {% if forloop.first %}
+                        {% assign new_name = capitalized_word %} {% comment %} als het het eerste woord is, zet als capitalized_word {% endcomment %}
+                    {% else %}
+                        {% assign new_name = new_name | append: " " | append: capitalized_word %} {% comment %} voeg de rest van de woorden toe, met spatie {% endcomment %}
+                    {% endif %}
+                {% endfor %}
+
+                <label>
+                    <input type="radio" name="category" value="{{ category.name }}" {% if currentCategory == category.name %} checked {% endif %}>
+                    <span>{{ new_name }}</span>
+                </label>
+            {% endfor %}
+        </div>
+        <button type="submit" class="webinars-btns submit-button">Filter webinars</button>
+    </form>
+</section>
