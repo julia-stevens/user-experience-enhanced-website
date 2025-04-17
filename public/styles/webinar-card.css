@@ -32,6 +32,7 @@
 .webinar-thumbnail img {
     --border-radius: 16px 16px 0px 0px;
     width: 100%;
+    height: auto;
     object-fit: cover;
     border-radius: var(--border-radius, 16px 16px 0px 0px);
 }
