@@ -1,0 +1,35 @@
+.all-webinars {
+    display: flex; 
+    flex-direction: column;
+    gap: .5rem;
+}
+
+.webinars-overview {
+    display: flex; 
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+@media (min-width: 1000px) {
+    .webinars-overview {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+}
+
+@supports not (display: flex) {
+    .all-webinars, .webinars-overview {
+        display: block; 
+    }
+}
+
+@supports not (gap: 1rem) {
+    .webinars-overview {
+        margin-bottom: 1rem;
+    }
+
+    .webinars-overview article {
+        margin-right: 1rem;
+    }
+}
