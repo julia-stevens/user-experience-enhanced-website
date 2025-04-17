@@ -2,7 +2,37 @@
     <h3 class="sr-only" inert>{{ webinar.title }}</h3>
     <a href="/webinars/{{ webinar.slug }}">
         <div class="webinar-thumbnail">
-            <img src="https://fdnd-agency.directus.app/assets/{{ webinar.thumbnail | default: "assets/images/default-webinar.avif"}}" alt="" width="100">
+            {% comment %} <img 
+                src="https://fdnd-agency.directus.app/assets/{{ webinar.thumbnail }}?width=400"
+                srcset="
+                https://fdnd-agency.directus.app/assets/{{ webinar.thumbnail }}?width=200 200w,
+                https://fdnd-agency.directus.app/assets/{{ webinar.thumbnail }}?width=400 400w,
+                https://fdnd-agency.directus.app/assets/{{ webinar.thumbnail }}?width=600 600w            
+                " 
+                sizes="(min-width: 1363px) 26.6vw, (min-width: 1000px) 40vw, 80vw"
+                alt="" 
+                width="100"
+            > {% endcomment %}
+            <picture>
+                <source
+                  srcset="
+                    https://fdnd-agency.directus.app/assets/{{ webinar.thumbnail }}?format=avif&width=200 200w,
+                    https://fdnd-agency.directus.app/assets/{{ webinar.thumbnail }}?format=avif&width=400 400w,
+                    https://fdnd-agency.directus.app/assets/{{ webinar.thumbnail }}?format=avif&width=600 600w,
+                  "
+                  sizes="
+                    (max-width: 200px) 200px,
+                    (max-width: 400px) 400px,
+                    (max-width: 600px) 600px
+                  "
+                  type="image/avif" />
+                <img 
+                  src="https://fdnd-agency.directus.app/assets/{{ webinar.thumbnail }}?width=400" 
+                  alt="..." 
+                  width="100"
+                  class="webinar-img" 
+                />
+            </picture>
             <p class="duration-btn">{{ webinar.duration }}</p>
         </div>
         <div class="webinar-info">
