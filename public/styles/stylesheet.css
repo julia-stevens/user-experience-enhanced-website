@@ -160,8 +160,7 @@ main {
     align-items: start;
     gap: 1rem;
     padding: 0 1rem;
-    padding-bottom: 266px;
-    /* padding-bottom: 10rem; */
+    margin-bottom: 5rem;
 }
 
 @supports not (display: flex){
@@ -174,5 +173,16 @@ main {
 @supports not (gap: 1rem) {
     main {
         margin-bottom: 6    rem;
+    }
+}
+
+.more-link-arrow, .more-link-arrow a {
+    display: flex; 
+    align-items: center;
+    gap: .5rem;
+    transition: .3s ease-out;
+
+    &:hover {
+        gap: 1rem;
     }
 }

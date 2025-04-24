@@ -1,7 +1,6 @@
 body {
     min-height: 100vh;
     height: max-content;
-    position: relative; 
 }
 
 footer {
@@ -18,12 +17,12 @@ footer {
         display: flex; 
         flex-direction: column;
         gap: .5rem;
-        position: absolute;
-        bottom: 0; 
+        position: relative;
+        margin-top: 1rem;
     }
 }
 
-nav {
+.footer-nav {
     display: grid; 
     place-items: center; 
     padding-bottom: .5rem;
@@ -33,6 +32,7 @@ nav {
         flex-direction: row; 
         align-items: start;
         justify-content: space-between;
+        padding-bottom: 1rem;
     }
 }
 
@@ -75,9 +75,10 @@ nav {
     justify-content: space-between;
     gap: .5em;
     max-width: 520px;
-    overflow-y: hidden;
-    overflow-x: auto;
-    
+    /* overflow-y: hidden; */
+    /* overflow-x: auto; */
+    position: relative; 
+
     @media (min-width: 890px) {
         flex-direction: column;
         align-items: start;
@@ -100,8 +101,6 @@ nav {
         font-weight: var(--font-weight-bold, 700);
     }
 }
-
-
 .footer-links a {
     display: flex; 
     flex-direction: column; 
@@ -119,8 +118,16 @@ nav {
         width: max-content;
     }
 
+    background-image:linear-gradient(var(--secondary, #19B2A2) 0 0);
+    background-size:0% .1em;
+    background-position: right bottom;
+    background-repeat:no-repeat;
+    
+    transition: background-size .3s ease-out;
+
     &:hover {
-        color: var(--secondary, #19B2A2);
+        background-size: 100% .1em;
+        background-position: left bottom;
     }
 }
 
@@ -130,7 +137,7 @@ nav {
     }
 }
 
-.footer-links svg {
+.footer-links img {
     height: 2rem;
 
     @media (min-width: 890px) {
@@ -173,3 +180,4 @@ nav {
     max-width: 1350px;
     margin: 0 auto;
 }
+

@@ -11,7 +11,7 @@ header {
 
 nav {
     width: 100%;
-    max-width: 1366px;
+    max-width: 1350px;
     margin: 0 auto;
 }
 
@@ -20,6 +20,10 @@ nav {
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
+
+    @media (min-width: 890px) {
+        justify-content: space-between;
+    }
 }
 
 .nav-logos {
@@ -52,32 +56,31 @@ nav {
     display: none; 
 
     @media (min-width: 890px) {
-        font-weight: var(--font-weight-bold, 700);
         flex-grow: 1;
-        max-width: 842px;
+        max-width: 500px;
         /* FLEX parent */
         display: flex; 
         flex-direction: row;
         align-items: center;
-        justify-content: space-between;
+        justify-content: end;
+        gap: 1rem;
 
         .nav-link {
             display: flex; 
             flex-direction: row;
             align-items: center;
             gap: .5rem;
-            transition: var(--transition, .2s ease-in);
 
-            svg {
-                width: 20px;
-            }
+            background-image:linear-gradient(var(--secondary, #19B2A2) 0 0);
+            background-size:0% .1em;
+            background-position: right bottom;
+            background-repeat:no-repeat;
+            
+            transition: background-size .3s ease-out;
 
             &:not(:last-of-type):hover { /* hover maar niet op laatste a (profile knop) */
-                color: var(--secondary, #19B2A2);
-
-                svg path{
-                    fill: currentColor;
-                }
+                background-size: 100% .1em;
+                background-position: left bottom;
             }
         }
         .highlight-btn {
@@ -85,12 +88,15 @@ nav {
             --btn-padding: .5rem 1rem;
             background-color: var(--secondary, #19B2A2);
             color: #1F307A;
+            font-weight: var(--font-weight-bold);
 
             &:hover {
                 background-color: #0b9385;
             }
         }
     }
+}
+
 .nav-link {
     position: relative; 
 }

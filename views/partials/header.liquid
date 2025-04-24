@@ -7,22 +7,22 @@
         <div class="nav-links">
             <a href="/" class="nav-link">
                 {% comment %} <img src="/assets/icons/home.svg" alt="" width="20"> {% endcomment %}
-                {% render "public/assets/icons/home.liquid" %}
+                {% comment %} {% render "public/assets/icons/home.liquid" %} {% endcomment %}
                 Home
             </a>
             <a href="/webinars" class="nav-link">
                 {% comment %} <img src="/assets/icons/webinars.svg" alt="" width="20"> {% endcomment %}
-                {% render "public/assets/icons/webinars.liquid" %}
+                {% comment %} {% render "public/assets/icons/webinars.liquid" %} {% endcomment %}
                 Webinars
             </a>
             <a href="/contourings" class="nav-link">
                 {% comment %} <img src="/assets/icons/contourings.svg" alt="" width="20"> {% endcomment %}
-                {% render "public/assets/icons/contourings.liquid" %}
+                {% comment %} {% render "public/assets/icons/contourings.liquid" %} {% endcomment %}
                 Contourings
             </a>
             <a href="/bookmarks" class="nav-link">
                 {% comment %} <img src="/assets/icons/bookmarks.svg" alt="" width="20"> {% endcomment %}
-                {% render "public/assets/icons/bookmarks.liquid" %}
+                {% comment %} {% render "public/assets/icons/bookmarks.liquid" %} {% endcomment %}
                 Bookmarks
                 <div class="bookmark-count">
                     {{ count.filter_count }}   
@@ -30,7 +30,7 @@
             </a>
             <a href="/profile" class="nav-link highlight-btn">
                 {% comment %} <img src="/assets/icons/profile.svg" alt="" width="20"> {% endcomment %}
-                {% render "public/assets/icons/profile-header.liquid" %}
+                {% comment %} {% render "public/assets/icons/profile-header.liquid" %} {% endcomment %}
                 Profile
             </a>
         </div>
