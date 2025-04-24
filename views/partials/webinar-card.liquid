@@ -17,12 +17,19 @@
                     (max-width: 500px) 500px
                   "
                   type="image/avif" />
+                  type="image/avif" 
+                />
                 <img 
                   src="https://fdnd-agency.directus.app/assets/{{ webinar.thumbnail }}?width=400" 
                   alt="..." 
                   width="100"
                   height="225"
+                  src="https://fdnd-agency.directus.app/assets/{{ webinar.thumbnail }}?format=png&width=400" 
+                  alt="" 
+                  width="16"
+                  height="9"
                   class="webinar-img" 
+                  loading="eager"
                 />
             </picture>
             <p class="duration-btn">{{ webinar.duration }}</p>
@@ -46,6 +53,7 @@
             <a href="/webinars/{{ webinar.slug }}" class="webinar-link">
                 View webinar
                 <img src="/assets/icons/arrow-webinar.svg" alt="" width="20">
+                <img src="/assets/icons/arrow-webinar.svg" alt="" width="20" height="20">
             </a>
         </div>
     </a>
@@ -58,11 +66,13 @@
         {% if bookmarkedIds contains webinar.id %}
             <button type="submit" class="bookmark-btn highlight-btn" >
                 <img src="/assets/icons/bookmarks-blue-marked.svg" alt="" width="20">    
+                <img src="/assets/icons/bookmarks-blue-marked.svg" alt="" width="20" height="40">    
                 <span>Bookmarked</span>
             </button> 
         {% else %}
             <button type="submit" class="bookmark-btn highlight-btn">
                 <img src="/assets/icons/bookmarks-blue.svg" alt="" width="20">
+                <img src="/assets/icons/bookmarks-blue.svg" alt="" width="20" height="40">
                 {% comment %} {% include "public/assets/icons/bookmarks-blue.liquid" %} {% endcomment %}
                 <span>Bookmark</span>
             </button>
