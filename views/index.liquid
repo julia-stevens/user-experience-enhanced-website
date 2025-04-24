@@ -12,6 +12,51 @@
             <a href="/bookmarks" class="webinars-btns submit-button">Bookmarks</a>
         </div>
     </section>
+        <section class="partnership page-title">
+            <h2>A Global Partnership</h2>
+            <div class="info">
+               <p>
+                    The radiation Oncology Webinar Series is a collaboration between the Deparment of Radiology, Faculty of Medicine, Public Health, and Nursing, Universitas Gadjah Mada and the Antoni van Leeuwenhoek Netherlands Cancer Institute
+                </p> 
+            </div>
+            <div class="scroller" data-direction="left" data-speed="fast">
+                <div class="scroller-content">
+                    <img class="img1" src="/assets/images/partnership/logo1.png" alt="Logo Universitas Gadjah Mada" width="160" height="160"> 
+                    <img src="/assets/images/partnership/logo2.png" alt="Logo Departemen Kesahatan R.I." width="160" height="160"> 
+                    <img src="/assets/images/partnership/logo3.png" alt="Logo IDGNH" width="160" height="160"> 
+                    <img src="/assets/images/partnership/logo4.png" alt="Logo Nederlandse Vereniging voor Radiotherapie en Oncologie" width="160" height="160"> 
+                    <img src="/assets/images/partnership/logo5.png" alt="Logo Amsterdam UMC" width="160" height="160"> 
+                    <img src="/assets/images/partnership/logo6.svg" alt="Logo Antoni van Leeuwenhoek" width="160" height="160"> 
+                </div>
+            </div>
+            <div class="more-link-arrow">
+                <a href="/">More about Oncollaboration</a>
+                <img src="/assets/icons/arrow-home.svg" alt="" width="20" height="25">
+            </div>
+            <div class="bg-section"></div>
+        </section>
     </main>
 
-{% render "partials/foot.liquid" %}
+{% render "partials/foot.liquid" %}    <script>
+        const scollers = document.querySelectorAll(".scroller")
+
+        if(!window.matchMedia("(prefers-reduced-motion:reduce)").matches) {
+            addAnimation();
+        }
+
+        function addAnimation() {
+            scollers.forEach(scroller => {
+                scroller.setAttribute("data-animated", true)
+
+                const scrollerContent = scroller.querySelector(".scroller-content")
+                const scrollerContents = Array.from(scrollerContent.children)
+    
+                scrollerContents.forEach(item => {
+                    const duplicatedItem = item.cloneNode(true) 
+                    duplicatedItem.setAttribute("aria-hidden", true)
+                    scrollerContent.appendChild(duplicatedItem)
+                })
+            })
+            
+        }
+    </script>

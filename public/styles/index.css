@@ -1,0 +1,73 @@
+    .scroller {
+        width: 100vw;
+        max-width: 1000px;
+        margin-left: -1rem;
+
+        @media (min-width: 1200px) {
+            max-width: 35rem;
+        }
+
+        .scroller-content {
+            /* padding-block: 1rem; */
+            display: flex; 
+            flex-wrap: wrap;
+            align-items: center;
+            gap: .5rem;
+
+            img {
+                width: 10rem;
+                height: 10rem;
+                object-fit: contain;                
+            }
+        }
+
+        @media (min-width: 1200px) {
+            position: absolute; 
+            right: 0;
+        }
+    }
+    .scroller[data-animated="true"] {
+        overflow: hidden;
+        -webkit-mask: linear-gradient(
+            90deg,
+            transparent, 
+            white 20%, 
+            white 80%,
+            transparent
+        );
+        mask: linear-gradient(
+            90deg,
+            transparent, 
+            white 20%, 
+            white 80%,
+            transparent
+        );
+    }
+    .scroller[data-animated="true"] .scroller-content {
+        width: max-content;
+        flex-wrap: nowrap;
+        animation: scroll var(--animation-duration, 40s) var(--animation-direction, forwards) linear infinite; 
+    }
+
+    .scroller[data-direction="right"] {
+        --animation-direction: reverse; 
+    }
+
+    .scroller[data-direction="left"] {
+        --animation-direction: forwards; 
+    }
+
+    .scroller[data-speed="fast"] {
+        --animation-duration: 20s; 
+    }
+
+    .scroller[data-speed="slow"] {
+        --animation-duration: 120s; 
+    }
+}
+
+@keyframes scroll {
+    to {
+        translate: calc(-50% - .5rem);
+    }
+}
