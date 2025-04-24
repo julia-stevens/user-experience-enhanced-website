@@ -14,7 +14,7 @@
 .empty-bookmarks p a {
     font-weight: var(--font-weight-bold, 700);
     text-decoration: underline;
-    transition: var(--transition, .2s ease-in);
+    transition: var(--transition, .2s ease-out);
 }
 
 .empty-bookmarks p a:hover {

@@ -9,7 +9,7 @@
 
 .breadcrumbs-links a {
     color: var(--primary, #1F307D);
-    transition: var(--transition, .2s ease-in);
+    transition: var(--transition, .2s ease-out);
 }
 
 .breadcrumbs-links a:first-of-type {

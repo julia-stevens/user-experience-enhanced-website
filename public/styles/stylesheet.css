@@ -46,7 +46,7 @@ body {
     a {
         text-decoration: none;
         color: inherit;
-        --transition: .2s ease-in; 
+        --transition: .2s ease-out; 
     }
 
     ul {
@@ -60,8 +60,8 @@ body {
         border: none;
 
         &.highlight-btn {
-            --btn-transition: .2s ease-in; 
-            transition: var(--btn-transition, .2s ease-in);
+            --btn-transition: .2s ease-out; 
+            transition: var(--btn-transition, .2s ease-out);
             font-size: 16px; 
             &:hover {
                 --background-color: rgb(186, 189, 0);
@@ -72,10 +72,10 @@ body {
 }
 
 .highlight-btn {
-    --btn-transition: .2s ease-in; 
+    --btn-transition: .2s ease-out; 
     --border-radius: 5px 16px 5px 5px;
     --btn-padding: .25rem .5rem; 
-    transition: var(--btn-transition, .2s ease-in);
+    transition: var(--btn-transition, .2s ease-out);
     color: var(--primary, #1F307D);
     background-color: var(--highlight, #DBE002);
     padding: var(--btn-padding, .25rem .5rem);
@@ -86,10 +86,10 @@ body {
 }
 
 .submit-button {
-    --btn-transition: .2s ease-in; 
+    --btn-transition: .2s ease-out; 
     --border-radius: 5px 5px 5px 5px;
     --btn-padding: .5rem 1rem; 
-    transition: var(--btn-transition, .2s ease-in);
+    transition: var(--btn-transition, .2s ease-out);
     color: var(--light, white);
     font-weight: var(--font-weight-bold, 700);
     font-size: 1rem;
@@ -130,12 +130,13 @@ body {
 }
 
 .page-title {
-    max-width: 585px; 
+    p {
+        max-width: 585px;   
+    }
     /* FLEX parent */
     display: flex; 
     flex-direction: column; 
-    align-items: start;
-    gap: .5rem;
+    gap: 1rem;
 }
 
 @supports not (gap: .5rem){
