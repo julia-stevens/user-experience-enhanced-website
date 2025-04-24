@@ -1,3 +1,79 @@
+.main-index {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 1rem;
+    padding: 1rem;
+}
+
+.introduction {
+    position: relative; 
+    padding: 1rem 0 0 0;
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    p {
+        margin-bottom: .5rem;
+    }
+
+    .highlight-btn {
+        border-radius: 5px;
+        padding: .5rem 1rem;
+        font-weight: var(--font-weight-bold);
+        width: max-content;
+
+        &:hover {
+            background-color: #BABD00;
+        }
+    }
+
+    figure {
+        width: 100vw;
+        height: 40vh;
+        margin-left: -1rem;
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+
+            @media (min-width: 1200px) {
+                border-radius: 1rem;
+            }
+        }
+
+        @media (min-width: 1200px) {
+            width: 35rem;
+            height: 20rem;
+            margin: 0;
+
+            position: absolute;
+            right: 0;
+        }
+    }
+
+    @media (min-width: 1200px) {
+        height: calc(20rem + 2rem);
+        width: 95vw;
+        max-width: 1350px;
+    }
+}
+
+.partnership {
+    width: 100vw;
+    max-width: 1350px;
+    margin: -1rem 0 0 -1rem;
+    padding: 1rem;
+    position: relative;
+
+    @media (min-width: 1200px) {
+        width: 95vw;
+        max-width: 1350px;
+        margin: 0;
+    }
+
     .scroller {
         width: 100vw;
         max-width: 1000px;
@@ -26,6 +102,20 @@
             right: 0;
         }
     }
+
+    .bg-section {
+        position: absolute; 
+        inset: 0;
+        background-color: var(--primary-light);
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+
+        @media (min-width: 1200px) {
+            border-radius: 1rem;
+        }
+    }
+
     .scroller[data-animated="true"] {
         overflow: hidden;
         -webkit-mask: linear-gradient(
@@ -69,5 +159,41 @@
 @keyframes scroll {
     to {
         translate: calc(-50% - .5rem);
+    }
+}
+
+.webinars-about {
+    padding: 1rem 0;
+
+    li {
+        display: flex; 
+        align-items: center;
+        gap: .5rem;
+        margin-bottom: .5rem;
+    }
+}
+
+.latest-webinar {
+    padding: 1rem;
+    position: relative;
+
+    display: flex; 
+    flex-direction: column;
+    gap: .5rem;
+
+    .webinar-article {
+        &:hover {
+            background-color: var(--primary-light);
+        }
+    }
+
+    .bg-section {
+        position: absolute; 
+        inset: 0;
+        background-color: var(--primary-light);
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        border-radius: 1rem;
     }
 }
