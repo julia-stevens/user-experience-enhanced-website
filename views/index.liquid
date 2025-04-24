@@ -2,16 +2,45 @@
 {% include "partials/head.liquid" %}
 
     <main class="main-index" id="main">
-        <h1>Home</h1>
+        <section class="introduction page-title">
+            <h1>Oncollaboration</h1>
+            <div class="info">
+                <p>
+                    Oncollaboration is an online platform created to support international cooperation and knowledge exchange between radiation oncology professionals in the Netherlands and Indonesia.
+                </p>
+                <p>
+                    By hosting expert-led webinars, sharing educational resources, and fostering professional interaction, Oncollaboration strengthens global connections in the field of radiotherapy.
+                </p>
+            </div>
+            <a href="#partnership" class="highlight-btn">More about Oncollaboration</a>
+            <figure class="hero">
+                <picture>
+                    <source
+                        srcset="
+                            /assets/images/hero-extra-small.avif 360w,
+                            /assets/images/hero-small.avif 720w,
+                            /assets/images/hero-medium.avif 1440w,
+                            /assets/images/hero-large.avif 2880w,
+                        "
+                        sizes="
+                            (max-width: 360px) 260px,
+                            (max-width: 720px) 720px,
+                            (max-width: 1440px) 1440px,
+                            (max-width: 2880px) 2880px
+                        "
+                        type="image/avif"
+                    />
+                    <img 
+                        src="/assets/images/hero-small.avif" 
+                        alt="5 doctors talking to each other" 
+                        width="720" ~
+                        height="290" 
+                        loading="eager"
+                    >
+                </picture>
+            </figure>
+        </section>
 
-    <section class="error">
-        <h2>In progress...</h2>    
-        <p>Please continue to one of the pages</p>
-        <div class="pages-overview">
-            <a href="/webinars" class="webinars-btns submit-button">Webinars</a>
-            <a href="/bookmarks" class="webinars-btns submit-button">Bookmarks</a>
-        </div>
-    </section>
         <section class="partnership page-title">
             <h2>A Global Partnership</h2>
             <div class="info">
@@ -35,9 +64,41 @@
             </div>
             <div class="bg-section"></div>
         </section>
+
+        <section class="webinars-about page-title">
+            <h2>Webinars</h2>
+            <div class="about-content">
+                <ul>
+                    <li>
+                        <img src="/assets/icons/checkmark.svg" alt="" width="20" height="20" loading="lazy">
+                        Focused sessions on specific clinical topics in radiotherapy
+                    </li>
+                    <li>
+                        <img src="/assets/icons/checkmark.svg" alt="" width="20" height="20" loading="lazy">
+                        Live presentations with Q&A
+                    </li>
+                    <li>
+                        <img src="/assets/icons/checkmark.svg" alt="" width="20" height="20" loading="lazy">
+                        Recordings and resources available for later viewing
+                    </li>                                        
+                </ul>
+            </div>
+        </section>
+
+        <section class="latest-webinar">
+            <h2>Latest Webinar</h2>
+            {% for webinar in webinars %}
+                {% include "views/partials/webinar-card.liquid" %}
+            {% endfor %}
+            <div class="more-link-arrow">
+                <a href="/webinars">View all webinars</a>
+                <img src="/assets/icons/arrow-home.svg" alt="" width="20" height="25">
+            </div>           
+            <div class="bg-section"></div>
+        </section>
     </main>
 
-{% render "partials/foot.liquid" %}    <script>
+    <script>
         const scollers = document.querySelectorAll(".scroller")
 
         if(!window.matchMedia("(prefers-reduced-motion:reduce)").matches) {
@@ -60,3 +121,80 @@
             
         }
     </script>
+
+<script>
+    if ('fetch' in window && 'DOMParser' in window) {
+
+        // Als er ergens op de pagina een formulier wordt gesubmit..
+        // (We maken hier gebruik van Event Delegation)
+        document.addEventListener('submit', async function(event) {
+        // Hou in een variabele bij welk formulier dat was
+        const form = event.target
+        
+        // Als dit formulier geen data-enhanced attribuut heeft, doe dan niks
+        // Dit doen we, zodat we sommige formulieren op de pagina kunnen 'enhancen'
+        // Data attributen mag je zelf verzinnen; dit is dus niet iets speciaals
+        // https://developer.mozilla.org/en-US/docs/Learn_web_development/Howto/Solve_HTML_problems/Use_data_attributes
+        if (!form.hasAttribute('data-enhanced')) {
+            return
+        }
+        
+        // Voorkom de standaard submit van de browser
+        // Let op: hiermee overschrijven we de default Loading state van de browser...
+        event.preventDefault()
+        
+        form.classList.add("loading")
+        
+        // Doe een fetch naar de server, net als hoe de browser dit normaal zou doen
+        // Gebruik daarvoor het action en method attribuut van het originele formulier
+        // Inclusief alle formulierelementen
+        const response = await fetch(form.action, {
+            method: form.method,
+            body: new URLSearchParams(new FormData(form))
+        })
+        
+        // De server redirect op de normale manier, en geeft HTML terug
+        // (De server weet niet eens dat deze fetch via client-side JavaScript gebeurde)
+        const responseText = await response.text()
+        
+        // Normaal zou de browser die HTML parsen en weergeven, maar daar moeten we nu zelf iets mee
+        // Parse de nieuwe HTML en maak hiervan een nieuw Document Object Model in het geheugen
+        const parser = new DOMParser()
+        const responseDOM = parser.parseFromString(responseText, 'text/html')
+        
+        // Zoek in die nieuwe DOM onze nieuwe state op, die we via Liquid hebben klaargemaakt
+        // We gebruiken hiervoor het data-enhanced attribuut, zodat we weten waar we naar moeten zoeken
+        // (Hierdoor kunnen we ook meerdere formulieren op dezelfde pagina gebruiken)
+        const newState = responseDOM.querySelector('[data-enhanced="' + form.getAttribute('data-enhanced') + '"]')
+        
+        // Overschrijf ook het profile ding in de header, met een PLOP animatie
+        
+        // Overschrijf ons formulier met de nieuwe HTML
+        // Hier wil je waarschijnlijk de Loading state vervangen door een Success state
+        form.outerHTML = newState.outerHTML
+
+        const apiEndpoint = "https://fdnd-agency.directus.app/items"
+        const apiMessagesEndpoint = "/avl_messages"
+        const messagesFilter = "?filter[for][_eq]=Bookmark for Julia"
+        const bookmarksCount = "&limit=0&meta=filter_count"
+
+        const bookmarksCountResponse = await fetch(`${apiEndpoint}${apiMessagesEndpoint}${messagesFilter}${bookmarksCount}`)
+        const bookmarksCountResponseJSON = await bookmarksCountResponse.json()
+        
+        const newBookmarkCount = bookmarksCountResponseJSON.meta.filter_count
+        
+        const bookmarkCountElement = document.querySelector('.bookmark-count')
+        
+        if (bookmarkCountElement) {
+            bookmarkCountElement.classList.toggle("bookmark-anim")
+            bookmarkCountElement.textContent = newBookmarkCount
+
+            setTimeout(() => {
+                bookmarkCountElement.classList.remove("bookmark-anim")
+            }, 1000)
+        }
+      })
+    }
+    </script>
+
+{% include "partials/foot.liquid" %}
