@@ -20,18 +20,62 @@ const apiCategoriesEndpoint = "/avl_categories"
 const apiMessagesEndpoint = "/avl_messages"
 const webinarFields = "?fields=*,speakers.*.*,resources.*.*,categories.*.*"
 const messagesFilter = "?filter[for][_eq]=Bookmark for Julia"
+const bookmarksCount = "&limit=0&meta=filter_count"
 
 app.get("/", async function (request, response) {
-  const webinarResponse = await fetch(`${apiEndpoint}${apiWebinarEndpoint}${webinarFields}`);
-  const webinarResponseJSON = await webinarResponse.json();
+  const latestWebinar = "&sort=-date&limit=1"
 
-  const contouringResponse = await fetch(`${apiEndpoint}${apiContouringEndpoint}`)
-  const contouringResponseJSON = await contouringResponse.json()
+  const webinarResponse = await fetch(`${apiEndpoint}${apiWebinarEndpoint}${webinarFields}${latestWebinar}`)
+  const webinarResponseJSON = await webinarResponse.json()
+
+  const bookmarksResponse = await fetch(`${apiEndpoint}${apiMessagesEndpoint}${messagesFilter}`)
+  const bookmarksResponseJSON = await bookmarksResponse.json()
+
+  const bookmarkedWebinarIds = bookmarksResponseJSON.data.map(bookmark => String(bookmark.text)) // Converteer de "text" eigenschap van elk bookmark-object naar een string en sla deze op in een array
+  const webinarsWithStringIds = webinarResponseJSON.data.map(webinar => ({ // Nieuwe array waarin alle webinars worden gekopieerd en "id" wordt omgezet naar string
+    ...webinar, // Kopieer alle bestaande eigenschappen van het webinar object
+    id: String(webinar.id) // Zet "id" om naar een string
+  }))
+
+  const bookmarksCountResponse = await fetch(`${apiEndpoint}${apiMessagesEndpoint}${messagesFilter}${bookmarksCount}`);
+  const bookmarksCountResponseJSON = await bookmarksCountResponse.json()
 
   response.render("index.liquid", {
-    webinars: webinarResponseJSON.data,
-    contourings: contouringResponseJSON.data
+    webinars: webinarsWithStringIds,
+    webinarsStringIds: webinarsWithStringIds,
+    bookmarkedIds: bookmarkedWebinarIds,
+    count: bookmarksCountResponseJSON.meta
   })
+})
+
+app.post("/", async function (request, response) {
+  const { textField, forField, _method } = request.body // haal op uit body
+
+  if (_method === "DELETE") { // als method is DELETE (in liquid bepaald)
+    const bookmarksResponse = await fetch(`${apiEndpoint}${apiMessagesEndpoint}${messagesFilter}`)
+    const bookmarksResponseJSON = await bookmarksResponse.json()
+
+    const bookmarkToDelete = bookmarksResponseJSON.data.find( // Zoek in lijst van bookmarks
+      bookmark => bookmark.text === textField && bookmark.for === "Bookmark for Julia" // of "text" = textField én "for" = "Bookmark for Julia"
+    )
+
+    if (bookmarkToDelete) { // als bookmark gevonden is die aan conditions voldoet, dan delete
+      await fetch(`${apiEndpoint}${apiMessagesEndpoint}/${bookmarkToDelete.id}`, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json;charset=UTF-8" }
+      })
+    }
+  } else { // als method is geen DELETE 
+    await fetch(`${apiEndpoint}${apiMessagesEndpoint}`, {
+      method: "POST", // dus POST method
+      body: JSON.stringify({
+        text: textField, // text = webinar ID van gepostte webinar
+        for: forField // Bookmark for Julia
+      }),
+      headers: { "Content-Type": "application/json;charset=UTF-8" }
+    })
+  }
+  response.redirect(303, request.get("Referer") || "/webinars") // Referer heeft URL van vorige pagina en gebruiker wordt geredirect naar deze pagina (default is ander /webinars)
 })
 
 app.get("/webinars", async function (request, response) {
@@ -75,12 +119,16 @@ app.get("/webinars", async function (request, response) {
     id: String(webinar.id) // Zet "id" om naar een string
   }))
 
+  const bookmarksCountResponse = await fetch(`${apiEndpoint}${apiMessagesEndpoint}${messagesFilter}${bookmarksCount}`);
+  const bookmarksCountResponseJSON = await bookmarksCountResponse.json()
+
   response.render("webinars.liquid", {
     webinars: webinarsWithStringIds,
     categories: categoriesResponseJSON.data,
     currentSort: request.query.sort || "newest",
     currentCategory: request.query.category || "",
-    bookmarkedIds: bookmarkedWebinarIds
+    bookmarkedIds: bookmarkedWebinarIds,
+    count: bookmarksCountResponseJSON.meta
   })
 })
 
@@ -97,10 +145,14 @@ app.get("/webinars/:slug", async function (request, response) {
   const categoriesResponse = await fetch(`${apiEndpoint}${apiCategoriesEndpoint}`)
   const categoriesResponseJSON = await categoriesResponse.json()
 
+  const bookmarksCountResponse = await fetch(`${apiEndpoint}${apiMessagesEndpoint}${messagesFilter}${bookmarksCount}`);
+  const bookmarksCountResponseJSON = await bookmarksCountResponse.json()
+
   response.render("webinar.liquid", {
     webinars: webinarResponseJSON.data,
     contourings: contouringResponseJSON.data,
-    categories: categoriesResponseJSON.data
+    categories: categoriesResponseJSON.data,
+    count: bookmarksCountResponseJSON.meta
   })
 })
 
@@ -124,11 +176,15 @@ app.get("/bookmarks", async function (request, response) {
     bookmarkedWebinarIds.includes(webinar.id) // controleer of "id" van webinar voorkomt in bookmarked (opgeslagen) id's
   )
   
+  const bookmarksCountResponse = await fetch(`${apiEndpoint}${apiMessagesEndpoint}${messagesFilter}${bookmarksCount}`);
+  const bookmarksCountResponseJSON = await bookmarksCountResponse.json()
+
   response.render("bookmarks.liquid", {
     webinars: bookmarkedWebinars, 
     bookmarks: bookmarksResponseJSON.data,
     categories: categoriesResponseJSON.data,
-    bookmarkedIds: bookmarkedWebinarIds
+    bookmarkedIds: bookmarkedWebinarIds,
+    count: bookmarksCountResponseJSON.meta
   })
 })
 

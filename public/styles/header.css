@@ -91,4 +91,32 @@ nav {
             }
         }
     }
+.nav-link {
+    position: relative; 
+}
+
+.bookmark-count {
+    background-color: var(--highlight);
+    color: var(--primary);
+    font-weight: var(--font-weight-bold);
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    display: grid; 
+    place-items: center;
+    translate: -30% -50%;
+    box-shadow: 0px 0px 1px 1px #DBE0024e
+}
+
+.bookmark-count.bookmark-anim {
+    animation: pulse-animation 1s;
+}
+  
+@keyframes pulse-animation {
+    0% {
+        box-shadow: 0 0 0 0px #dce0024e;
+    }
+    100% {
+        box-shadow: 0 0 0 10px #DBE0024e;
+    }
 }

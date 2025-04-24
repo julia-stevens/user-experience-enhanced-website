@@ -24,6 +24,9 @@
                 {% comment %} <img src="/assets/icons/bookmarks.svg" alt="" width="20"> {% endcomment %}
                 {% render "public/assets/icons/bookmarks.liquid" %}
                 Bookmarks
+                <div class="bookmark-count">
+                    {{ count.filter_count }}   
+                </div>
             </a>
             <a href="/profile" class="nav-link highlight-btn">
                 {% comment %} <img src="/assets/icons/profile.svg" alt="" width="20"> {% endcomment %}
