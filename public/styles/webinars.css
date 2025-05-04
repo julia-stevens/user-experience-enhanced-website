@@ -15,6 +15,7 @@
     .webinars-overview {
         flex-direction: row;
         flex-wrap: wrap;
+        align-items: start;
     }
 }
 
