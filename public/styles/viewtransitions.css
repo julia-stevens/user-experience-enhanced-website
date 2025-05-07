@@ -1,0 +1,66 @@
+@view-transition {
+    navigation: auto; 
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .page {
+        view-transition-name: page;
+    }
+
+    .headerVT {
+        view-transition-name: header; 
+    }
+
+    .footerVT {
+        view-transition-name: footer;
+    }
+    
+    ::view-transition-old(page) {
+        animation: .5s cubic-bezier(0.4, 0, 0.2, 1) both slide-to-left;
+        z-index: 1;
+    }
+
+    ::view-transition-new(page) {
+        animation: .5s cubic-bezier(0.4, 0, 0.2, 1) both slide-from-right;
+        z-index: 1;
+    }
+
+    ::view-transition-old(footer) {
+        animation: .5s cubic-bezier(0.4, 0, 0.2, 1) both slide-to-left;
+        z-index: 99;
+    }
+
+    ::view-transition-new(footer) {
+        animation: .5s cubic-bezier(0.4, 0, 0.2, 1) both slide-from-right;
+        z-index: 99;
+    }
+
+    ::view-transition-headerOld(header) {
+        position: fixed;
+        z-index: 99;
+    }
+
+    ::view-transition-headerNew(header) {
+        position: fixed;
+        z-index: 99;
+    }
+}
+
+/* Keyframes */
+@keyframes slide-from-right {
+    from {
+        transform: translateX(100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+@keyframes slide-to-left {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-100%);
+    }
+}

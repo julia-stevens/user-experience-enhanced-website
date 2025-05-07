@@ -4,6 +4,8 @@
     height: fit-content;
     padding: 2rem 1rem 1rem 1rem;
     margin-top: -1rem;
+    border-radius: 1rem;
+    z-index: -1;
 }
 
 .breadcrumbs-links a {
