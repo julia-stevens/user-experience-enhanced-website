@@ -52,6 +52,12 @@ De website is gebouwd vanuit het mobile-first principe. Onderstaande afbeelding 
 ![image](https://github.com/user-attachments/assets/5367ec07-5941-4998-966e-a1debafffd81)
 
 ### Ontwerpkeuzes
+#### Algemeen 
+* *Kleur*: de blauwe en geel/groene kleur heb ik overgenomen vanuit het logo van het Indonesische ziekenhuis. Dit om nadruk te leggen dat Indonesië onderdeel maakt van de samenwerking.
+* *Typografie*: de typografie heb ik overgenomen vanaf de website van het AVL, om te benadrukken dat dit ziekenhuis onderdeel maakt van de samenwerking.
+* *UI*: ik maak veel gebruik van afgeronde border om een speelse, vriendelijke sfeer te creëeren.
+* *Logo's in header*: in de header heb ik 2 logo's staan om wederom nadruk te leggen op de internationale samenwerking. 
+
 #### Nieuwe huisstijl
 Deze sprint ben ik verder gegaan met het bewerken van de huisstijl van het platform. Ik heb kleine aanpassingen gemaakt in vergelijking met vorige sprint. 
 
