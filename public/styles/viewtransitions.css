@@ -3,18 +3,19 @@
 }
 
 @media (prefers-reduced-motion: no-preference) {
-    .page {
+    /* MULTI PAGE TRANSITIONS - Only apply when not doing card removal */
+    html:not(.card-removing) .page {
         view-transition-name: page;
     }
 
-    .headerVT {
-        view-transition-name: header; 
+    html:not(.card-removing) .headerVT {
+        view-transition-name: header;
     }
 
-    .footerVT {
+    html:not(.card-removing) .footerVT {
         view-transition-name: footer;
     }
-    
+
     ::view-transition-old(page) {
         animation: .5s cubic-bezier(0.4, 0, 0.2, 1) both slide-to-left;
         z-index: 1;
@@ -35,15 +36,40 @@
         z-index: 99;
     }
 
-    ::view-transition-headerOld(header) {
+    ::view-transition-old(header),
+    ::view-transition-new(header) {
         position: fixed;
         z-index: 99;
     }
 
-    ::view-transition-headerNew(header) {
-        position: fixed;
-        z-index: 99;
+    /* SINGLE PAGE CARD TRANSITIONS */
+    :root {
+        view-transition-name: none;
     }
+
+    ::view-transition {
+        pointer-events: none;
+    }
+
+    .webinar-article.removing {
+        view-transition-name: targeted-card;
+    }
+
+    ::view-transition-old(targeted-card):only-child {
+        animation: animate-out ease-out .5s both;
+    }
+}
+
+
+@keyframes animate-out {
+	0% {
+		opacity: 1;
+		translate: 0 0;
+	}
+	100% {
+		opacity: 0;
+		translate: 0 -200px;
+	}
 }
 
 /* Keyframes */

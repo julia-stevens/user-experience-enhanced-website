@@ -1,4 +1,4 @@
-<article class="webinar-article">
+<article class="webinar-article" id="webinar-{{ webinar.id }}">
     <h3 class="sr-only" inert>{{ webinar.title }}</h3>
     <a href="/webinars/{{ webinar.slug }}">
         <div class="webinar-thumbnail">
@@ -58,7 +58,7 @@
         <input type="hidden" name="_method" value="{% if bookmarkedIds contains webinar.id %}DELETE{% else %}POST{% endif %}">
         
         {% if bookmarkedIds contains webinar.id %}
-            <button type="submit" class="bookmark-btn highlight-btn" >
+            <button type="submit" class="bookmark-btn highlight-btn delete-btn">
                 <img src="/assets/icons/bookmarks-blue-marked.svg" alt="" width="20" height="40">    
                 <span>Bookmarked</span>
             </button> 

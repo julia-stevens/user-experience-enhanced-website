@@ -84,10 +84,10 @@ if ('fetch' in window && 'DOMParser' in window) {
             bookmarkCountElement.classList.add("bookmark-anim")
             bookmarkCountElement.textContent = newBookmarkCountElement.textContent // Vervang de tekst met de nieuwe tekst uit server response
 
-            // Verwijder animatie class na 1 seconde
-            setTimeout(() => {
+            // Verwijder class als animation end
+            bookmarkCountElement.addEventListener("animationend", () => {
                 bookmarkCountElement.classList.remove("bookmark-anim")
-            }, 1000)
+            })
         }
     })
 }

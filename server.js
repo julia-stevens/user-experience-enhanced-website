@@ -80,8 +80,6 @@ app.post("/", async function (request, response) {
 
 app.get("/webinars", async function (request, response) {
   let sortWebinars = ""
-  const filterCategory = "&filter[categories][avl_categories_id][name][_eq]="
-  let filteredCategory = ""
 
   switch (request.query.sort) {
     case "newest":
@@ -99,6 +97,9 @@ app.get("/webinars", async function (request, response) {
     default:
       sortWebinars = ""
   }
+
+  const filterCategory = "&filter[categories][avl_categories_id][name][_eq]="
+  let filteredCategory = ""
 
   if (request.query.category) {
     filteredCategory = `${filterCategory}${encodeURIComponent(request.query.category)}`
