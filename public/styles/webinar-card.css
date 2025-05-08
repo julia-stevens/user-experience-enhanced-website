@@ -104,7 +104,7 @@
     font-size: 1rem;
 }
 
-.webinar-info a:last-of-type {
+.webinar-link{
     color: var(--primary, #1F307D);
     font-weight: var(--font-weight-bold, 700);
     /* FLEX parent */
