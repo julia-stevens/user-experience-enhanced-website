@@ -1,9 +1,11 @@
+/* view transition om perceived performance te verbeteren */
+
 @view-transition {
     navigation: auto; 
 }
 
 @media (prefers-reduced-motion: no-preference) {
-    /* MULTI PAGE TRANSITIONS - Only apply when not doing card removal */
+    /* multi page view transition */
     html:not(.card-removing) .page {
         view-transition-name: page;
     }
@@ -16,6 +18,7 @@
         view-transition-name: footer;
     }
 
+    /* pagina content & footer krijgen animaties mee (oud schuift van beeld af naar links, nieuw schuift beeld in vanuit rechts) */
     ::view-transition-old(page) {
         animation: .5s cubic-bezier(0.4, 0, 0.2, 1) both slide-to-left;
         z-index: 1;
@@ -36,31 +39,35 @@
         z-index: 99;
     }
 
+    /* header fixed, zodat deze niet mee beweegt */
     ::view-transition-old(header),
     ::view-transition-new(header) {
         position: fixed;
         z-index: 99;
     }
 
-    /* SINGLE PAGE CARD TRANSITIONS */
+    /* single page view transition */
     :root {
         view-transition-name: none;
     }
 
+    /* geen interactie met card mogelijk tijdens view transition */
     ::view-transition {
         pointer-events: none;
     }
 
+    /* verwijderde card krijg name: targeted-card */
     .webinar-article.removing {
         view-transition-name: targeted-card;
     }
 
+    /* animatie wordt toegevoegd aan het 'enige' kind */
     ::view-transition-old(targeted-card):only-child {
         animation: animate-out ease-out .5s both;
     }
 }
 
-
+/* transparantie gaat naar 0 en beweegt omhoog */
 @keyframes animate-out {
 	0% {
 		opacity: 1;
@@ -72,7 +79,7 @@
 	}
 }
 
-/* Keyframes */
+/* van rechts (uit beeld) naar volledig in beeld */
 @keyframes slide-from-right {
     from {
         transform: translateX(100%);
@@ -82,6 +89,7 @@
     }
 }
 
+/* van volledig in beeld naar links (uit beeld) */
 @keyframes slide-to-left {
     from {
         transform: translateX(0);

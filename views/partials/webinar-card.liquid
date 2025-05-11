@@ -2,9 +2,11 @@
     <h3 class="sr-only" inert>{{ webinar.title }}</h3>
     <a href="/webinars/{{ webinar.slug }}">
         <div class="webinar-thumbnail">
-            <picture>
-                <source
-                  srcset="
+            <picture> <!-- picture element voor responsive images -->
+                <!-- in srcset wordt afbeelding in avif formaat ingeladen, met verschillende breedtes -->
+                <!-- in sizes wordt bepaald bij welke breedte, welke afbeelding gebruikt moet worden (bij 200px, wordt de afbeelding van 200w gekozen) -->
+                <source 
+                  srcset=" 
                     https://fdnd-agency.directus.app/assets/{{ webinar.thumbnail }}?format=avif&width=200 200w,
                     https://fdnd-agency.directus.app/assets/{{ webinar.thumbnail }}?format=avif&width=300 300w,
                     https://fdnd-agency.directus.app/assets/{{ webinar.thumbnail }}?format=avif&width=400 400w,
@@ -18,6 +20,7 @@
                   "
                   type="image/avif" 
                 />
+                <!-- fallback afbeelding met png formaat en breedte van 400px - deze wordt gekozen als avif niet ondersteund wordt -->
                 <img 
                   src="https://fdnd-agency.directus.app/assets/{{ webinar.thumbnail }}?format=png&width=400" 
                   alt="" 
