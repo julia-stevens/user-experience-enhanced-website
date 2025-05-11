@@ -31,18 +31,18 @@ if ('fetch' in window && 'DOMParser' in window) {
 
         
         // BOOKMARK COUNT
-        // Zoek nieuwe bookmark count in response
+        // zoek nieuwe bookmark count in response
         const newBookmarkCountElement = responseDOM.querySelector('.bookmark-count') 
         
-        // Zoek huidige bookmark count op de pagina
+        // zoek huidige bookmark count op de pagina
         const bookmarkCountElement = document.querySelector('.bookmark-count')
         
-        // Als beide elementen bestaan, activeer de animatie & pas de tekst aan (de count)
+        // als beide elementen bestaan, activeer de animatie & pas de tekst aan (de count)
         if (newBookmarkCountElement && bookmarkCountElement) {
             bookmarkCountElement.classList.add("bookmark-anim")
-            bookmarkCountElement.textContent = newBookmarkCountElement.textContent // Vervang de tekst met de nieuwe tekst uit server response
+            bookmarkCountElement.textContent = newBookmarkCountElement.textContent // vervang de tekst met de nieuwe tekst uit server response
             
-            // Verwijder class als animation end
+            // verwijder class als animation end
             bookmarkCountElement.addEventListener("animationend", () => {
                 bookmarkCountElement.classList.remove("bookmark-anim")
             })
